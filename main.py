@@ -2,6 +2,7 @@ import pygame
 from random import randint
 import time
 from eroe import Eroe
+from cattivi import Cattivi
 
 WIDTH, HEIGHT = 800, 600
 
@@ -10,9 +11,10 @@ clock = pygame.time.Clock()
 window_size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(window_size)
 pygame.display.set_caption('Gioco navicelle')
-sfondo = pygame.image.load("immagini-gioco\\sfondo contro cattivi.jpeg")
+sfondo = pygame.image.load("immagini-gioco\\sfondo progetto.jpg")
 sfondo  = pygame.transform.scale(sfondo, (WIDTH, HEIGHT))
 eroe = Eroe()
+cattivi = Cattivi(15)
 
 #ciclo fondamentale
 running = True
@@ -25,5 +27,6 @@ while running:
     eroe.move(key_pressed)
     screen.blit(sfondo, (0, 0))
     eroe.draw(screen)
+    cattivi.draw(screen)
     pygame.display.flip()
     clock.tick(60)
