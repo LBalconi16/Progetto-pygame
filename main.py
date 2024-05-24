@@ -14,7 +14,7 @@ pygame.display.set_caption('Gioco navicelle')
 sfondo = pygame.image.load("immagini-gioco\\sfondo progetto.jpg")
 sfondo  = pygame.transform.scale(sfondo, (WIDTH, HEIGHT))
 eroe = Eroe()
-cattivi = Cattivi(15)
+cattivi = Cattivi(3, 12)
 
 #ciclo fondamentale
 running = True
