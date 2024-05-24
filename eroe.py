@@ -1,5 +1,5 @@
 import pygame
-
+from sparo_buoni import Bullet
 WIDTH, HEIGHT = 800, 600
 VEL = 5
 
@@ -25,3 +25,8 @@ class Eroe:
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
+    
+    def handle_event(self, event):
+         # 3 è il tasto destro del mouse
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3: 
+            self.shoot()

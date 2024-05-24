@@ -4,6 +4,7 @@ import time
 from eroe import Eroe
 from cattivi import Cattivi
 from boss import Boss
+from sparo_buoni import Bullet
 
 WIDTH, HEIGHT = 800, 600
 
