@@ -6,7 +6,8 @@ class Cattivi:
         self.nemici = []
         self.larghezza = 50
         self.altezza = 50
-        self.image = pygame.image.load("immagini-gioco\\nave piccolo cattivo.png")
+        self.image = pygame.image.load("immagini-gioco\\immagine cattivo mini.png")
+        self.image = pygame.transform.rotate(self.image, 180)
         self.image = pygame.transform.scale(self.image, (self.larghezza, self.altezza))
         self.righe = righe
         self.colonne = colonne
