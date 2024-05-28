@@ -1,5 +1,5 @@
 import pygame
-from random import randint
+import random 
 import time
 from eroe import Eroe
 from cattivi import Cattivi
@@ -20,14 +20,26 @@ eroe = Eroe()
 cattivi = Cattivi(3, 12)
 boss = Boss()
 
+
+
 #dimensioni proiettili 
 dim_bullet_buoni_x = 35
 dim_bullet_buoni_y = 50
+
+#dimensioni proiettili cattivi
+dim_bullet_cattivi_x = 35
+dim_bullet_cattivi_y = 50
 
 
 #colpi dei buoni
 immagine_colpo_buoni = pygame.image.load("immagini-gioco\\colpo buoni.png.png")
 image_proiettile_buoni = pygame.transform.rotate(immagine_colpo_buoni, 90)
+
+#colpi dei cattivi
+immagine_colpo_cattivi = pygame.image.load("immagini-gioco\\colpo cattivi.png")
+
+#colpi del boss finale
+immagine_colpo_cattivi = pygame.image.load("immagini-gioco\\colpo_boss_finale.png")
 
 lista_bullet = []
 #ciclo fondamentale
@@ -46,7 +58,8 @@ while running:
         lista_bullet[i].muovi_bullet()
 
 
-    
+
+
     screen.blit(sfondo, (0, 0))
 
     eroe.draw(screen)
