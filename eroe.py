@@ -1,5 +1,5 @@
 import pygame
-from sparo_buoni import Bullet
+from sparo import Bullet
 WIDTH, HEIGHT = 800, 600
 VEL = 5
 
@@ -22,11 +22,17 @@ class Eroe:
             self.rect.y -= VEL
         if keys[pygame.K_s] and self.rect.y <= HEIGHT - self.rect.height:
             self.rect.y += VEL
+    
+    def posizione_eroe_x(self):
+        return self.rect.x
+    
+    def posizione_eroe_y(self):
+        return self.rect.y
 
     def draw(self, screen):
         screen.blit(self.image, (self.rect.x, self.rect.y))
     
-    def handle_event(self, event):
-         # 3 è il tasto destro del mouse
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3: 
-            self.shoot()
+    def handle_event(self, bullet):
+        bullet.shoot()
+        bullet.draw()
+        
