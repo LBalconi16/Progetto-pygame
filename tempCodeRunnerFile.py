@@ -1,1 +1,1 @@
-WIDTH, HEIGHT = 800, 600
+self.image = pygame.transform.scale(self.image, (dim_x, dim_y))

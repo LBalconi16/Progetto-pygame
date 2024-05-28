@@ -16,8 +16,10 @@ screen = pygame.display.set_mode(window_size)
 pygame.display.set_caption('Gioco navicelle')
 sfondo = pygame.image.load("immagini-gioco\\sfondo progetto.jpg")
 sfondo  = pygame.transform.scale(sfondo, (WIDTH, HEIGHT))
+cattiviy = 3
+cattivix = 12
 eroe = Eroe()
-cattivi = Cattivi(3, 12)
+cattivi = Cattivi(cattiviy, cattivix)
 boss = Boss()
 
 
@@ -39,7 +41,7 @@ image_proiettile_buoni = pygame.transform.rotate(immagine_colpo_buoni, 90)
 immagine_colpo_cattivi = pygame.image.load("immagini-gioco\\colpo cattivi.png")
 
 #colpi del boss finale
-immagine_colpo_cattivi = pygame.image.load("immagini-gioco\\colpo_boss_finale.png")
+immagine_colpo_boss = pygame.image.load("immagini-gioco\\colpo_boss_finale.png")
 
 lista_bullet = []
 #ciclo fondamentale
@@ -56,6 +58,21 @@ while running:
     eroe.move(key_pressed)
     for i in range(len(lista_bullet)):
         lista_bullet[i].muovi_bullet()
+    cattivi.update()
+    for proiettile in lista_bullet:
+        for nemico in cattivi.nemici:
+            if proiettile.rect.colliderect(nemico):
+                cattivi.nemici.remove(nemico)
+                lista_bullet.remove(proiettile)
+                break
+    # Controlla le collisioni tra i proiettili dei nemici e la navicella
+    for proiettile in cattivi.proiettili:
+        if proiettile.rect.colliderect(eroe.rect):
+            eroe.colpita = True
+            running = False
+            cattivi.proiettili.remove(proiettile)
+            break
+
 
 
 
