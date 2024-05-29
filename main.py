@@ -42,7 +42,7 @@ image_proiettile_buoni = pygame.transform.rotate(immagine_colpo_buoni, 90)
 immagine_colpo_cattivi = pygame.image.load("immagini-gioco\\colpo cattivi.png")
 
 #colpi del boss finale
-immagine_colpo_boss = pygame.image.load("immagini-gioco\\colpo_boss_finale.png")
+immagine_colpo_boss = pygame.image.load("immagini-gioco\\colpo_del_boss.png")
 
 lista_bullet = []
 #ciclo fondamentale
@@ -53,7 +53,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == pygame.BUTTON_LEFT:
-            bullet_rect = pygame.Rect(eroe.posizione_eroe_x()+28, eroe.posizione_eroe_y()-28, dim_bullet_buoni_x, dim_bullet_buoni_y)
+            bullet_rect = pygame.Rect(eroe.posizione_eroe_x()+37, eroe.posizione_eroe_y()-31, dim_bullet_buoni_x, dim_bullet_buoni_y)
             d = Bullet(image_proiettile_buoni, bullet_rect)
             lista_bullet.append(d)
     key_pressed = pygame.key.get_pressed()
@@ -84,13 +84,26 @@ while running:
 
     eroe.draw(screen)
     cattivi.draw(screen)
+    # Controlla le collisioni tra i proiettili della navicella e boss
     if cattivi.nemici_sconfitti == True:
         if conta_spawnboss>(FPS*5):
-            boss.update()
+            for proiettile in boss.proiettili:
+                if proiettile.rect.colliderect(nemico):
+                    boss.proiettili.remove(proiettile)
+                    break
+# Controlla le collisioni tra i proiettili del boss e la navicella
+            for proiettile in cattivi.proiettili:
+                if proiettile.rect.colliderect(eroe.rect):
+                    eroe.colpita = True
+                    running = False
+                    cattivi.proiettili.remove(proiettile)
+                    break
             boss.draw(screen)
-        conta_spawnboss+= 1
+            boss.update()
+        conta_spawnboss+=1
     for i in range(len(lista_bullet)):
         lista_bullet[i].disegna_bullet(screen)
+    # bullet.update()
     # boss.draw(screen) 
     pygame.display.flip()
     clock.tick(FPS)
