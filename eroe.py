@@ -3,7 +3,7 @@ from sparo import Bullet
 WIDTH, HEIGHT = 800, 600
 VEL = 5
 
-dim_nav_x, dim_nav_y = 100, 100
+dim_nav_x, dim_nav_y = 80, 85
 nav_x, nav_y = (WIDTH // 2) - (dim_nav_x // 2), HEIGHT - dim_nav_y
 
 class Eroe:

@@ -14,14 +14,14 @@ clock = pygame.time.Clock()
 window_size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(window_size)
 pygame.display.set_caption('Gioco navicelle')
-sfondo = pygame.image.load("immagini-gioco\\sfondo progetto.jpg")
+sfondo = pygame.image.load("immagini-gioco\\sfondo1.jpg")
 sfondo  = pygame.transform.scale(sfondo, (WIDTH, HEIGHT))
 cattiviy = 3
 cattivix = 12
 eroe = Eroe()
 cattivi = Cattivi(cattiviy, cattivix)
 boss = Boss()
-FPS = 60
+FPS = 30
 
 
 
@@ -53,7 +53,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == pygame.BUTTON_LEFT:
-            bullet_rect = pygame.Rect(eroe.posizione_eroe_x()+37, eroe.posizione_eroe_y()-31, dim_bullet_buoni_x, dim_bullet_buoni_y)
+            bullet_rect = pygame.Rect(eroe.posizione_eroe_x()+28, eroe.posizione_eroe_y()-28, dim_bullet_buoni_x, dim_bullet_buoni_y)
             d = Bullet(image_proiettile_buoni, bullet_rect)
             lista_bullet.append(d)
     key_pressed = pygame.key.get_pressed()
@@ -86,11 +86,11 @@ while running:
     cattivi.draw(screen)
     if cattivi.nemici_sconfitti == True:
         if conta_spawnboss>(FPS*5):
+            boss.update()
             boss.draw(screen)
         conta_spawnboss+= 1
     for i in range(len(lista_bullet)):
         lista_bullet[i].disegna_bullet(screen)
-    # bullet.update()
     # boss.draw(screen) 
     pygame.display.flip()
     clock.tick(FPS)
