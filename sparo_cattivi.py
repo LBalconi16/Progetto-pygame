@@ -13,7 +13,7 @@ dim_y = 20
 class Bullet_nemici:
     def __init__(self, x, y):
         self.image = pygame.transform.scale(immagine_colpo_cattivi, (dim_x, dim_y))
-        self.rect = pygame.Rect(x-9, y-70, dim_x, dim_y)
+        self.rect = pygame.Rect(x-9, y-14, dim_x, dim_y)
         self.velocita = 5
 
     def update(self):

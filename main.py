@@ -21,6 +21,7 @@ cattivix = 12
 eroe = Eroe()
 cattivi = Cattivi(cattiviy, cattivix)
 boss = Boss()
+FPS = 60
 
 
 
@@ -46,6 +47,7 @@ immagine_colpo_boss = pygame.image.load("immagini-gioco\\colpo_boss_finale.png")
 lista_bullet = []
 #ciclo fondamentale
 running = True
+conta_spawnboss = 0
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -59,6 +61,7 @@ while running:
     for i in range(len(lista_bullet)):
         lista_bullet[i].muovi_bullet()
     cattivi.update()
+    # Controlla le collisioni tra i proiettili della navicella e nemici
     for proiettile in lista_bullet:
         for nemico in cattivi.nemici:
             if proiettile.rect.colliderect(nemico):
@@ -81,9 +84,13 @@ while running:
 
     eroe.draw(screen)
     cattivi.draw(screen)
+    if cattivi.nemici_sconfitti == True:
+        if conta_spawnboss>(FPS*5):
+            boss.draw(screen)
+        conta_spawnboss+= 1
     for i in range(len(lista_bullet)):
         lista_bullet[i].disegna_bullet(screen)
     # bullet.update()
     # boss.draw(screen) 
     pygame.display.flip()
-    clock.tick(60)
+    clock.tick(FPS)
