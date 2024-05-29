@@ -7,8 +7,8 @@ altezza = 600
 larghezza = 800 
 VEL = 5
 
-dim_x = 80
-dim_y = 60
+dim_x = 60
+dim_y = 45
 
 
 
@@ -22,7 +22,7 @@ class Bullet_boss:
 
     def update(self):
         self.rect.y += self.velocita
-        prob = random.randint(-10, 9)
+        prob = random.randint(-7, 6)
         self.rect.x += prob
 
 

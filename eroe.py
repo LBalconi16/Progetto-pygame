@@ -12,6 +12,8 @@ class Eroe:
         self.image = pygame.transform.scale(self.image, (dim_nav_x, dim_nav_y))
         self.rect = pygame.Rect(nav_x, nav_y, dim_nav_x, dim_nav_y)
         self.speed = 5
+        self.colpita = False
+        self.esplosione = None
 
     def move(self, keys):
         if keys[pygame.K_a] and self.rect.x >= 0:
@@ -22,6 +24,8 @@ class Eroe:
             self.rect.y -= VEL
         if keys[pygame.K_s] and self.rect.y <= HEIGHT - self.rect.height:
             self.rect.y += VEL
+        if self.colpita and self.esplosione:
+            self.esplosione.update()
     
     def posizione_eroe_x(self):
         return self.rect.x

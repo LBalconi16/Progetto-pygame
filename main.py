@@ -5,6 +5,7 @@ from eroe import Eroe
 from cattivi import Cattivi
 from boss import Boss
 from sparo import Bullet
+from esplosione import Esplosione
 
 
 WIDTH, HEIGHT = 800, 600
@@ -21,7 +22,9 @@ cattivix = 12
 eroe = Eroe()
 cattivi = Cattivi(cattiviy, cattivix)
 boss = Boss()
-FPS = 30
+FPS = 60
+vita_eroe = 999
+vita_boss = 100
 
 
 
@@ -32,6 +35,10 @@ dim_bullet_buoni_y = 50
 #dimensioni proiettili cattivi
 dim_bullet_cattivi_x = 35
 dim_bullet_cattivi_y = 50
+#immagini boss
+immagine_boss = pygame.image.load("immagini-gioco\\nave boss.webp")
+immagine_boss1 = pygame.image.load("immagini-gioco\\nave boss1.jpg")
+immagine_boss2 = pygame.image.load("immagini-gioco\\nave boss2.jpg")
 
 
 #colpi dei buoni
@@ -45,6 +52,7 @@ immagine_colpo_cattivi = pygame.image.load("immagini-gioco\\colpo cattivi.png")
 immagine_colpo_boss = pygame.image.load("immagini-gioco\\colpo_del_boss.png")
 
 lista_bullet = []
+esplosioni = []
 #ciclo fondamentale
 running = True
 conta_spawnboss = 0
@@ -65,14 +73,20 @@ while running:
     for proiettile in lista_bullet:
         for nemico in cattivi.nemici:
             if proiettile.rect.colliderect(nemico):
+                esplosioni.append(Esplosione(nemico.centerx, nemico.centery))
                 cattivi.nemici.remove(nemico)
                 lista_bullet.remove(proiettile)
                 break
     # Controlla le collisioni tra i proiettili dei nemici e la navicella
     for proiettile in cattivi.proiettili:
         if proiettile.rect.colliderect(eroe.rect):
-            eroe.colpita = True
-            running = False
+            vita_eroe-=1
+            if vita_eroe == 0:
+                running = False
+                print('hai perso')
+            if not eroe.colpita:
+                eroe.colpita = True
+                eroe.esplosione = Esplosione(eroe.rect.centerx, eroe.rect.centery)
             cattivi.proiettili.remove(proiettile)
             break
 
@@ -84,25 +98,71 @@ while running:
 
     eroe.draw(screen)
     cattivi.draw(screen)
-    # Controlla le collisioni tra i proiettili della navicella e boss
-    if cattivi.nemici_sconfitti == True:
+    if cattivi.nemici_sconfitti == True and vita_boss>=0:
         if conta_spawnboss>(FPS*5):
+            if vita_boss >=67:
+                boss.draw(screen, immagine_boss, vita_boss)
+            elif vita_boss>=34:
+                boss.draw(screen, immagine_boss1, vita_boss)
+            else:
+                boss.draw(screen, immagine_boss2, vita_boss)
+            boss.update(vita_boss)
+# Controlla le collisioni tra i proiettili del boss e la navicella
             for proiettile in boss.proiettili:
-                if proiettile.rect.colliderect(nemico):
+                if proiettile.rect.colliderect(eroe.rect):
+                    vita_eroe -= 1
+                    if vita_eroe == 0:
+                        running = False
+                        print('hai perso')
                     boss.proiettili.remove(proiettile)
                     break
-# Controlla le collisioni tra i proiettili del boss e la navicella
-            for proiettile in cattivi.proiettili:
-                if proiettile.rect.colliderect(eroe.rect):
-                    eroe.colpita = True
+# Controlla le collisioni tra i proiettili della navicella e boss
+            for proiettile in lista_bullet:
+                if vita_boss == 0:
+                    print("Boss sconfitto! Hai vinto!")
+                    #running = False
+                if vita_boss>=67:
+                    if proiettile.rect.colliderect(boss.figura_colpita1a) or proiettile.rect.colliderect(boss.figura_colpita2a):
+                        vita_boss -= 1
+                        lista_bullet.remove(proiettile)
+                        break
+                elif vita_boss>=34:
+                    if proiettile.rect.colliderect(boss.figura_colpita1b) or proiettile.rect.colliderect(boss.figura_colpita2b):
+                        vita_boss -= 1
+                        lista_bullet.remove(proiettile)
+                        break
+                else:
+                    if proiettile.rect.colliderect(boss.figura_colpita1c) or proiettile.rect.colliderect(boss.figura_colpita2c):
+                        vita_boss -= 1
+                        lista_bullet.remove(proiettile)
+                        break
+# Controlla le collisioni tra la navicella e il boss
+            if vita_boss>=67:
+                if eroe.rect.colliderect(boss.figura_colpita1a) or eroe.rect.colliderect(boss.figura_colpita2a):
                     running = False
-                    cattivi.proiettili.remove(proiettile)
-                    break
-            boss.draw(screen)
-            boss.update()
+                    print('hai perso')    
+            elif vita_boss>=34:
+                if eroe.rect.colliderect(boss.figura_colpita1b) or eroe.rect.colliderect(boss.figura_colpita2b):
+                    running = False
+                    print('hai perso')
+            else:
+                if eroe.rect.colliderect(boss.figura_colpita1c) or eroe.rect.colliderect(boss.figura_colpita2c):
+                    running = False
+                    print('hai perso')
+                
         conta_spawnboss+=1
+# Controlla le collisioni tra la navicella e i nemici
+    for nemico in cattivi.nemici:
+        if eroe.rect.colliderect(nemico):
+            running = False
+            print('hai perso')
+            break
     for i in range(len(lista_bullet)):
         lista_bullet[i].disegna_bullet(screen)
+    # Aggiorna le esplosioni
+    for esplosione in esplosioni:
+        esplosione.update()
+    esplosioni = [e for e in esplosioni if e.index != -1]
     # bullet.update()
     # boss.draw(screen) 
     pygame.display.flip()
