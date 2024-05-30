@@ -32,7 +32,7 @@ cattivi = Cattivi(3, 12)
 boss = Boss()
 FPS = 60
 # vita eroe e boss
-vita_eroe = 10
+vita_eroe = 999
 vita_boss = 100
 
 win = True
@@ -137,7 +137,6 @@ while running:
                             break
                     else:
                         if proiettile.rect.colliderect(boss.figura_colpita1a) or proiettile.rect.colliderect(boss.figura_colpita2a):
-                            esplosioni.append(Esplosione(bullet_rect.x, bullet_rect.y, 40, 40))
                             vita_boss -= 1
                             lista_bullet.remove(proiettile)
                             break
@@ -150,13 +149,11 @@ while running:
                             break
                     else:
                         if proiettile.rect.colliderect(boss.figura_colpita1b) or proiettile.rect.colliderect(boss.figura_colpita2b):
-                            esplosioni.append(Esplosione(bullet_rect.x, bullet_rect.y, 40, 40))
                             vita_boss -= 1
                             lista_bullet.remove(proiettile)
                             break
                 else:
                     if proiettile.rect.colliderect(boss.figura_colpita1c) or proiettile.rect.colliderect(boss.figura_colpita2c):
-                        esplosioni.append(Esplosione(bullet_rect.x, bullet_rect.y, 40, 40))
                         vita_boss -= 1
                         lista_bullet.remove(proiettile)
                         break
