@@ -7,8 +7,8 @@ altezza = 600
 larghezza = 800 
 VEL = 5
 
-dim_x = 60
-dim_y = 45
+dim_x = 65
+dim_y = 50
 
 
 

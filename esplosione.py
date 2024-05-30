@@ -2,7 +2,7 @@ import pygame
 
 class Esplosione:
     def __init__(self, x, y):
-        self.images = [pygame.image.load(f"immagini-gioco\\esplosione_{i}.jpg") for i in range(1, 6)]  # Carica le immagini dell'esplosione
+        self.images = [pygame.image.load(f"immagini-gioco\\esplosione_{i}.png") for i in range(1, 6)]  # Carica le immagini dell'esplosione
         self.index = 0
         self.image = self.images[self.index]
         self.rect = self.image.get_rect(center=(x, y))

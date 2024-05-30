@@ -40,7 +40,7 @@ class Boss:
             proiettile.draw(screen)
     
     def update(self, vita_boss):
-        prob1 = random.randint(1, 50)
+        prob1 = random.randint(1, 30)
         if prob1 == 10:
             self.spara(vita_boss)
         for proiettile in self.proiettili:
