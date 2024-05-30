@@ -32,7 +32,7 @@ cattivi = Cattivi(3, 12)
 boss = Boss()
 FPS = 60
 # vita eroe e boss
-vita_eroe = 999
+vita_eroe = 5
 vita_boss = 100
 
 win = True
