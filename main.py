@@ -23,7 +23,7 @@ eroe = Eroe()
 cattivi = Cattivi(cattiviy, cattivix)
 boss = Boss()
 FPS = 60
-vita_eroe = 999
+vita_eroe = 4
 vita_boss = 100
 
 
@@ -37,8 +37,8 @@ dim_bullet_cattivi_x = 35
 dim_bullet_cattivi_y = 50
 #immagini boss
 immagine_boss = pygame.image.load("immagini-gioco\\nave boss.webp")
-immagine_boss1 = pygame.image.load("immagini-gioco\\nave boss1.jpg")
-immagine_boss2 = pygame.image.load("immagini-gioco\\nave boss2.jpg")
+immagine_boss1 = pygame.image.load("immagini-gioco\\nave_boss1.png")
+immagine_boss2 = pygame.image.load("immagini-gioco\\nave_boss2.png")
 
 
 #colpi dei buoni
