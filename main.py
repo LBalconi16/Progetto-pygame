@@ -66,7 +66,7 @@ while running:
             running = False
         # lista proiettili
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == pygame.BUTTON_LEFT:
-            bullet_rect = pygame.Rect(eroe.posizione_eroe_x() + 37, eroe.posizione_eroe_y() - 31, dim_bullet_buoni_x, dim_bullet_buoni_y)
+            bullet_rect = pygame.Rect(eroe.posizione_eroe_x() + 28, eroe.posizione_eroe_y() - 31, dim_bullet_buoni_x, dim_bullet_buoni_y)
             d = Bullet(image_proiettile_buoni, bullet_rect)
             lista_bullet.append(d)
     
