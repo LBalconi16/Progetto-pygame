@@ -49,8 +49,8 @@ class Boss:
     def spara(self, vita_boss):
         if vita_boss >=67:
             x1 = self.rect.x + 20
-            x2 = self.rect.x + nav_dim_x//2
-            x3 = self.rect.x +nav_dim_x -20
+            x2 = self.rect.x + nav_dim_x//2-30
+            x3 = self.rect.x +nav_dim_x 
             y1 = self.rect.y + 50
             y2 = self.rect.y +nav_dim_y
             y3 = self.rect.y + 50
@@ -59,13 +59,13 @@ class Boss:
             self.proiettili.append(Bullet_boss(x3, y3))
                 
         elif vita_boss>=34:
-            x2 = self.rect.x + nav_dim_x//2
+            x2 = self.rect.x + nav_dim_x//2-30
             x3 = self.rect.x +nav_dim_x -20
             y2 = self.rect.y +nav_dim_y
             y3 = self.rect.y + 50
             self.proiettili.append(Bullet_boss(x2, y2))
             self.proiettili.append(Bullet_boss(x3, y3))
         else:           
-            x2 = self.rect.x + nav_dim_x//2
+            x2 = self.rect.x + nav_dim_x//2-30
             y2 = self.rect.y +nav_dim_y
             self.proiettili.append(Bullet_boss(x2, y2))

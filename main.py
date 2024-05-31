@@ -59,6 +59,7 @@ esplosioni = []
 # Ciclo fondamentale
 running = True
 conta_spawnboss = 0
+conta_vittoria = True
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -125,9 +126,6 @@ while running:
             
             # Controlla le collisioni tra i proiettili della navicella e boss
             for proiettile in lista_bullet:
-                if vita_boss == 0:
-                    win = False
-
                 if vita_boss >= 67:
                     if vita_boss == 67:
                         if proiettile.rect.colliderect(boss.figura_colpita1a) or proiettile.rect.colliderect(boss.figura_colpita2a):
@@ -152,11 +150,16 @@ while running:
                             vita_boss -= 1
                             lista_bullet.remove(proiettile)
                             break
-                else:
+                elif vita_boss>=1:
                     if proiettile.rect.colliderect(boss.figura_colpita1c) or proiettile.rect.colliderect(boss.figura_colpita2c):
                         vita_boss -= 1
                         lista_bullet.remove(proiettile)
                         break
+                else:
+                    if vita_boss == 0:
+                        win = False
+                        esplosioni.append(Esplosione(WIDTH/2, HEIGHT/2, 350, 350))
+                        vita_boss -= 1
             
             # Controlla le collisioni tra la navicella e il boss
             if vita_boss >= 67:
@@ -190,7 +193,9 @@ while running:
     if lose == False:
         screen.blit(sfondo_lose, (0, 0))
     if win == False:
-        screen.blit(sfondo_win, (0, 0))
+        if conta_vittoria>=(FPS*2):
+            screen.blit(sfondo_win, (0, 0))
+        conta_vittoria+=1
 
     pygame.display.flip()
     clock.tick(FPS)
